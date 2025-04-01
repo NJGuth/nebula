@@ -2,8 +2,6 @@
 // import MessageInput from "@/components/agent/message-input";
 // import { cn } from "@/lib/utils";
 
-import AiironSprite from "@/components/agent/icons/aiiron-sprite";
-
 export default function Home() {
   return (
     <div className="flex  flex-col items-center justify-center h-screen relative">
