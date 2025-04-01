@@ -2,8 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { AutosizeTextarea } from "./autosize-textarea";
-import SendIcon from "./icons/send-icon";
-import { AttachIcon } from "./icons";
+import { HelpIcon, SendIcon } from "./icons";
 import { AgentButton } from "./agent-button";
 
 export default function MessageInput({ ...props }) {
@@ -14,19 +13,27 @@ export default function MessageInput({ ...props }) {
           maxHeight={120}
           minHeight={20}
           className={cn(
-            "p-2 ",
-            "placeholder:text-muted-foreground peer",
+            "p-3 ",
+            "placeholder:text-slate-500 peer",
             " focus-visible:outline-none",
             "disabled:cursor-not-allowed disabled:opacity-50"
           )}
-          placeholder="Pirates?"
+          placeholder="What do you want to talk about?"
+          onKeyDown={(e) => {
+            if (e.key === "Return" && !e.shiftKey) {
+              e.preventDefault();
+              if (props.value) {
+                props.onSubmit?.(e);
+              }
+            }
+          }}
           {...props}
         />
-        <div className="flex justify-end p-1 gap-2">
+        <div className="flex justify-between p-1 gap-2">
           <AgentButton>
-            <AttachIcon />
+            <HelpIcon />
           </AgentButton>
-          <AgentButton>
+          <AgentButton variant="submit" disabled={!props.value} type="submit">
             <SendIcon />
           </AgentButton>
         </div>

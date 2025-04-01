@@ -4,10 +4,9 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import MessageInput from "./message-input";
-import AgentHeader from "./agent-header";
-import AgentContent from "./agent-content";
-import AiironSprite from "./icons/aiiron-sprite";
+
+import { AiironSprite } from "./icons";
+import Agent from "./agent";
 
 export default function AgentWindow() {
   return (
@@ -28,9 +27,7 @@ export default function AgentWindow() {
           "p-0 mb-1 w-85 mr-3 h-[600px] overflow-hidden rounded-2xl shadow-md flex flex-col"
         )}
       >
-        <AgentHeader />
-        <AgentContent />
-        <MessageInput />
+        <Agent />
       </PopoverContent>
     </Popover>
   );

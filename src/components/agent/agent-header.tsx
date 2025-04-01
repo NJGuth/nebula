@@ -1,6 +1,5 @@
 import { AgentButton } from "./agent-button";
-import { NewChatIcon } from "./icons";
-import AiironSprite from "./icons/aiiron-sprite";
+import { NewChatIcon, AiironSprite } from "./icons";
 
 export default function AgentHeader() {
   return (
