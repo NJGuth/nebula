@@ -1,6 +1,5 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { useChat } from "@ai-sdk/react";
 import AgentHeader from "./agent-header";
 import AgentContent from "./agent-content";
