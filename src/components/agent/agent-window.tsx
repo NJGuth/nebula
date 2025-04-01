@@ -18,7 +18,7 @@ export default function AgentWindow() {
           "bg-blue-700 ",
           "hover:bg-blue-800 active:bg-blue-900",
           "data-[state=closed]:hover:scale-105",
-          "data-[state=open]:bg-blue-800 data-[state=open]:ring-4 data-[state=open]:ring-blue-500/40"
+          "data-[state=open]:bg-blue-800 data-[state=open]:ring-4 data-[state=open]:ring-blue-500/40 data-[state=open]:shadow-lg"
         )}
       >
         <AiironSprite className="size-8 rotate-0  transition-all ease-out duration-150 group-data-[state=open]:scale-125 group-data-[state=closed]:hover:scale-105" />
