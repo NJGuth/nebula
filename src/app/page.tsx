@@ -1,3 +1,4 @@
+// import AgentContent from "@/components/agent/agent-content";
 // import AgentHeader from "@/components/agent/agent-header";
 // import MessageInput from "@/components/agent/message-input";
 // import { cn } from "@/lib/utils";
@@ -11,7 +12,7 @@ export default function Home() {
         )}
       >
         <AgentHeader />
-        <div className="flex-1 bg-slate-100"></div>
+        <AgentContent />
 
         <MessageInput />
       </div> */}

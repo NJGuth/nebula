@@ -1,8 +1,8 @@
-import { ScrollArea } from "../ui/scroll-area";
+import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 
 export default function AgentContent() {
   return (
-    <ScrollArea className="flex-1 bg-white overflow-y-auto">
+    <ScrollArea className="flex-1 flex flex-col-reverse  bg-white overflow-y-auto">
       <div className="flex flex-col gap-4 p-4">
         {/* Bot greeting message */}
         <div className="flex gap-2">
