@@ -1,4 +1,4 @@
-import { ScrollArea, ScrollBar } from "../ui/scroll-area";
+import { ScrollArea } from "../ui/scroll-area";
 
 export default function AgentContent() {
   return (
