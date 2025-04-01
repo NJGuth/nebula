@@ -6,7 +6,6 @@ export default function AgentContent() {
       <div className="flex flex-col gap-4 p-4">
         {/* Bot greeting message */}
         <div className="flex gap-2">
-          <div className="size-8 bg-blue-700 rounded-full flex-shrink-0" />
           <div className="bg-gray-100 rounded-lg p-3 max-w-[80%]">
             <p>Hi there! How can I help you today?</p>
           </div>
@@ -21,7 +20,6 @@ export default function AgentContent() {
 
         {/* Bot response */}
         <div className="flex gap-2">
-          <div className="size-8 bg-blue-700 rounded-full flex-shrink-0" />
           <div className="bg-gray-100 rounded-lg p-3 max-w-[80%]">
             <p>
               Pirates were seafaring outlaws who roamed the oceans from the 16th
@@ -40,7 +38,6 @@ export default function AgentContent() {
 
         {/* Bot detailed response */}
         <div className="flex gap-2">
-          <div className="size-8 bg-blue-700 rounded-full flex-shrink-0" />
           <div className="bg-gray-100 rounded-lg p-3 max-w-[80%]">
             <p>
               Some of the most famous pirates include Blackbeard (Edward Teach),
