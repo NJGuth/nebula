@@ -13,28 +13,30 @@ export default function Agent() {
       <AgentHeader />
 
       <AgentContent>
-        {messages.map((message) => (
-          <div key={message.id} className="whitespace-pre-wrap">
-            {message.parts.map((part, i) => {
-              switch (part.type) {
-                case "text":
-                  return message.role === "user" ? (
-                    <UserMessage
-                      key={`${message.id}-${i}`}
-                      message={part.text}
-                    />
-                  ) : (
-                    <AgentMessage
-                      key={`${message.id}-${i}`}
-                      message={part.text}
-                    />
-                  );
-                default:
-                  return null;
-              }
-            })}
-          </div>
-        ))}
+        <div className="flex flex-col gap-4 p-3 w-85">
+          {messages.map((message) => (
+            <div key={message.id} className="whitespace-pre-wrap break-words">
+              {message.parts.map((part, i) => {
+                switch (part.type) {
+                  case "text":
+                    return message.role === "user" ? (
+                      <UserMessage
+                        key={`${message.id}-${i}`}
+                        message={part.text}
+                      />
+                    ) : (
+                      <AgentMessage
+                        key={`${message.id}-${i}`}
+                        message={part.text}
+                      />
+                    );
+                  default:
+                    return null;
+                }
+              })}
+            </div>
+          ))}
+        </div>
       </AgentContent>
       <form onSubmit={handleSubmit}>
         <MessageInput

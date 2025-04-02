@@ -13,9 +13,11 @@ const buttonVariants = cva(
           "size-9  border-slate-300 text-slate-600 hover:bg-blue-100 hover:text-blue-700 active:bg-blue-200/80",
         submit:
           "bg-blue-100 text-blue-700 disabled:opacity-50 size-9 hover:bg-blue-700 hover:text-white",
+        secondary:
+          "border border-blue-300 px-1 text-blue-700 disabled:opacity-50  hover:bg-blue-700 hover:text-white",
       },
       size: {
-        default: "h-9 px-4 py-2",
+        default: "h-9 px-2 py-1.5",
       },
     },
     defaultVariants: {

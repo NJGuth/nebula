@@ -29,10 +29,7 @@ export default function MessageInput({ ...props }) {
           }}
           {...props}
         />
-        <div className="flex justify-between p-1 gap-2">
-          <AgentButton>
-            <HelpIcon />
-          </AgentButton>
+        <div className="flex justify-end p-1 gap-2">
           <AgentButton variant="submit" disabled={!props.value} type="submit">
             <SendIcon />
           </AgentButton>
