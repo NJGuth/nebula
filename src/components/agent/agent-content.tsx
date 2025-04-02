@@ -7,7 +7,7 @@ export default function AgentContent({
 }) {
   return (
     <ScrollArea className="flex-1 flex w-full flex-col-reverse bg-white overflow-y-auto">
-      {children}
+      <div className="grid gap-4 p-4"> {children}</div>
     </ScrollArea>
   );
 }

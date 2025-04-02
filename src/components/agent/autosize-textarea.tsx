@@ -60,10 +60,11 @@ export const AutosizeTextarea = React.forwardRef<
   (
     {
       maxHeight = Number.MAX_SAFE_INTEGER,
-      minHeight = 34,
+      minHeight = 20,
       className,
       onChange,
       value,
+      onKeyDown,
       ...props
     }: AutosizeTextAreaProps,
     ref: React.Ref<AutosizeTextAreaRef>
@@ -89,13 +90,25 @@ export const AutosizeTextarea = React.forwardRef<
       setTriggerAutoSize(value as string);
     }, [props?.defaultValue, value]);
 
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        const form = textAreaRef.current?.closest("form");
+        if (form) {
+          form.requestSubmit();
+        }
+      }
+      onKeyDown?.(e);
+    };
+
     return (
       <textarea
         {...props}
         value={value}
         ref={textAreaRef}
+        onKeyDown={handleKeyDown}
         className={cn(
-          "flex w-full text-slate-800 resize-none  bg-background  text-base  placeholder:text-slate-300 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+          "flex w-full resize-none  text-slate-800 text-base  placeholder:text-slate-400 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
           className
         )}
         onChange={(e) => {
