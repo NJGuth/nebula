@@ -26,7 +26,7 @@ export async function POST(req: Request) {
 
   return AssistantResponse(
     { threadId, messageId: createdMessage.id },
-    async ({ forwardStream, sendDataMessage }) => {
+    async ({ forwardStream }) => {
       // Run the assistant on the thread
       const runStream = openai.beta.threads.runs.stream(threadId, {
         assistant_id:
@@ -46,9 +46,7 @@ export async function POST(req: Request) {
       ) {
         const tool_outputs =
           runResult.required_action.submit_tool_outputs.tool_calls.map(
-            (toolCall: any) => {
-              const parameters = JSON.parse(toolCall.function.arguments);
-
+            (toolCall: OpenAI.Beta.Threads.Runs.FunctionToolCall) => {
               switch (toolCall.function.name) {
                 // configure your tool calls here
 
