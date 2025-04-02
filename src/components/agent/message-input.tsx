@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { AutosizeTextarea } from "./autosize-textarea";
-import { HelpIcon, SendIcon } from "./icons";
+import { SendIcon } from "./icons";
 import { AgentButton } from "./agent-button";
 
 export default function MessageInput({ ...props }) {
