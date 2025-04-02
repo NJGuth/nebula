@@ -7,7 +7,8 @@ import MessageInput from "./message-input";
 import { AgentMessage, UserMessage } from "./message";
 
 export default function Agent() {
-  const { messages, input, handleInputChange, handleSubmit } = useChat();
+  const { messages, input, handleInputChange, handleSubmit, status, stop } =
+    useChat();
   return (
     <div className="border w-85 h-[600px] overflow-hidden rounded-2xl shadow-md flex flex-col">
       <AgentHeader />
@@ -30,6 +31,7 @@ export default function Agent() {
                         message={part.text}
                       />
                     );
+
                   default:
                     return null;
                 }
@@ -38,6 +40,15 @@ export default function Agent() {
           ))}
         </div>
       </AgentContent>
+      {(status === "submitted" || status === "streaming") && (
+        <div>
+          {status === "submitted" && <p>Submitted</p>}
+          {status === "streaming" && <p>Streaming</p>}
+          <button type="button" onClick={() => stop()}>
+            Stop
+          </button>
+        </div>
+      )}
       <form onSubmit={handleSubmit}>
         <MessageInput
           value={input}
