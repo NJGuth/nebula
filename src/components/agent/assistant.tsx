@@ -34,6 +34,9 @@ export default function Assistant() {
 
   // create a new threadID when chat component created
   const [threadId, setThreadId] = useState("");
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [transitionMessages, setTransitionMessages] = useState<Message[]>([]);
+
   useEffect(() => {
     const createThread = async () => {
       const res = await fetch(`/api/threads`, {
@@ -60,28 +63,35 @@ export default function Assistant() {
 
   // handle creating a new thread
   const handleNewThread = async () => {
-    const res = await fetch(`/api/threads`, {
-      method: "POST",
-    });
-    const data = await res.json();
-    setThreadId(data.threadId);
-    // Reset messages when new thread is created
-    setMessages([
-      {
-        id: "welcome-message",
-        role: "system",
-        content:
-          "Hi i'm Aiiron\n\nI am an AI coach, here to support you between your coaching sessions.\n\n\n\nI can help you prepare for sessions, reflect on your coaching, craft development goals and more, get started by letting me know what you need!",
-      },
-    ]);
+    setIsTransitioning(true);
+    setTransitionMessages(messages);
+
+    // Wait for animation to complete
+    setTimeout(async () => {
+      const res = await fetch(`/api/threads`, {
+        method: "POST",
+      });
+      const data = await res.json();
+      setThreadId(data.threadId);
+      setMessages([
+        {
+          id: "welcome-message",
+          role: "system",
+          content:
+            "Hi i'm Aiiron\n\nI am an AI coach, here to support you between your coaching sessions.\n\n\n\nI can help you prepare for sessions, reflect on your coaching, craft development goals and more, get started by letting me know what you need!",
+        },
+      ]);
+      setIsTransitioning(false);
+    }, 300); // Match this with the CSS transition duration
   };
 
+  //Main component
   return (
     <div className="relative">
       <p className="absolute -top-20 left-0">Thread ID: {threadId}</p>
-      <div className="border w-full h-[600px] overflow-hidden rounded-2xl shadow-md flex flex-col">
+      <div className="border w-full h-[600px] max-w-[500px] overflow-hidden rounded-2xl shadow-md flex flex-col">
         {/* Assistant Header */}
-        <div className="p-3 flex justify-between items-center gap-1">
+        <div className="p-3 flex justify-between items-center gap-2">
           <div className="flex flex-1 items-center gap-1">
             <AiironSprite className="size-7" />
 
@@ -90,37 +100,52 @@ export default function Assistant() {
           <AgentButton>
             <HelpIcon />
           </AgentButton>
-          <AgentButton onClick={handleNewThread}>
+          <AgentButton
+            variant="newthread"
+            onClick={handleNewThread}
+            disabled={
+              status === "in_progress" ||
+              messages.filter((m) => m.role === "user").length < 1
+            }
+          >
             <NewChatIcon />
           </AgentButton>
         </div>
 
         {/* Assistant Content */}
         <AgentContent>
-          {messages.map((m: Message) => (
-            <div key={m.id}>
+          {(isTransitioning ? transitionMessages : messages).map(
+            (m: Message) => (
               <div
-                className={cn("flex ", {
-                  "justify-end": m.role === "user",
-                  "justify-start": m.role === "assistant",
+                key={m.id}
+                className={cn("transition-all duration-300", {
+                  "opacity-0": isTransitioning,
+                  "opacity-100": !isTransitioning,
                 })}
               >
                 <div
-                  className={cn(
-                    "text-white break-words break-all rounded-lg p-3 max-w-[90%]",
-                    m.role === "user"
-                      ? "bg-gray-100 text-slate-900"
-                      : "bg-blue-600"
-                  )}
+                  className={cn("flex ", {
+                    "justify-end": m.role === "user",
+                    "justify-start": m.role === "assistant",
+                  })}
                 >
-                  {m.role !== "data" && m.content}
+                  <div
+                    className={cn(
+                      "text-white break-words break-all rounded-lg p-3 max-w-[90%]",
+                      m.role === "user"
+                        ? "bg-gray-100 text-slate-900"
+                        : "bg-blue-600"
+                    )}
+                  >
+                    {m.role !== "data" && m.content}
+                  </div>
                 </div>
-              </div>
-              {/* <AgentButton variant="default" onClick={() => handleDelete(m.id)}>
+                {/* <AgentButton variant="default" onClick={() => handleDelete(m.id)}>
                 <TrashIcon />
               </AgentButton> */}
-            </div>
-          ))}
+              </div>
+            )
+          )}
         </AgentContent>
 
         {/* Form Input */}

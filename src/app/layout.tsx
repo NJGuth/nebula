@@ -21,10 +21,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={` ${inter.variable} antialiased`}>
-        <main className="relative container mx-auto max-w-lg px-9">
-          {children}
-          <AgentWindow />
-        </main>
+        <div className=" ">
+          <main className="relative ">
+            {children}
+            <AgentWindow />
+          </main>
+        </div>
       </body>
     </html>
   );

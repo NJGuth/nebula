@@ -10,14 +10,16 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "size-9  border-slate-300 text-slate-600 hover:bg-blue-100 hover:text-blue-700 active:bg-blue-200/80",
+          "size-9 border-slate-300 text-slate-600 hover:bg-blue-100 hover:text-blue-700 active:bg-blue-200/80",
         submit:
           "bg-blue-100 text-blue-700 disabled:opacity-50 size-9 hover:bg-blue-700 hover:text-white",
         secondary:
           "border border-blue-300 px-1 text-blue-700 disabled:opacity-50  hover:bg-blue-700 hover:text-white",
+        newthread:
+          "border border-slate-300 px-8 gap-1 text-sm font-medium text-blue-700 disabled:opacity-50 hover:border-blue-700  hover:bg-blue-100 hover:text-blue-700 disabled:cursor-not-allowed disabled:opacity-50",
       },
       size: {
-        default: "h-9 px-2 py-1.5",
+        default: "h-9 px-2 py-2",
       },
     },
     defaultVariants: {
