@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={` ${inter.variable} antialiased`}>
-        <main className="relative">
+        <main className="relative ">
           {children}
           <AgentWindow />
         </main>
