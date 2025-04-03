@@ -16,10 +16,20 @@ import { useEffect, useState } from "react";
 
 export default function Assistant() {
   // useAssistant hook to create a new assistant
-  const { status, messages, input, submitMessage, handleInputChange, stop } =
-    useAssistant({
-      api: "/api/assistant",
-    });
+  const {
+    status,
+    messages,
+    input,
+    submitMessage,
+    handleInputChange,
+    stop,
+    setMessages,
+  } = useAssistant({
+    api: "/api/assistant",
+    onError(error) {
+      console.error("Error:", error);
+    },
+  });
 
   // create a new threadID when chat component created
   const [threadId, setThreadId] = useState("");
@@ -30,34 +40,40 @@ export default function Assistant() {
       });
       const data = await res.json();
       setThreadId(data.threadId);
-      // Reset messages when new thread is created
-      setThreadMessages([]);
+      setMessages([
+        {
+          id: "welcome-message",
+          role: "system",
+          content:
+            "Hi i'm Aiiron\n\nI am an AI coach, here to support you between your coaching sessions.\n\n\n\nI can help you prepare for sessions, reflect on your coaching, craft development goals and more, get started by letting me know what you need!",
+        },
+      ]);
     };
     createThread();
   }, []);
 
-  // Create local message store, to store messages in the thread
-  const [threadMessages, setThreadMessages] = useState<Message[]>([]);
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    submitMessage(e);
-
-    // Add user message to thread messages
-    setThreadMessages((prev) => [
-      ...prev,
-      {
-        id: Date.now().toString(),
-        content: input,
-        role: "user",
-        threadId,
-      },
-    ]);
-    console.log("Message sent:", { content: input, threadId });
+  // handle delete of a single message
+  const handleDelete = (id: string) => {
+    setMessages(messages.filter((message) => message.id !== id));
   };
 
-  // to:do: store messages in db with threadId + User ID
-  console.log(threadMessages, "threadMessages");
+  // handle creating a new thread
+  const handleNewThread = async () => {
+    const res = await fetch(`/api/threads`, {
+      method: "POST",
+    });
+    const data = await res.json();
+    setThreadId(data.threadId);
+    // Reset messages when new thread is created
+    setMessages([
+      {
+        id: "welcome-message",
+        role: "system",
+        content:
+          "Hi i'm Aiiron\n\nI am an AI coach, here to support you between your coaching sessions.\n\n\n\nI can help you prepare for sessions, reflect on your coaching, craft development goals and more, get started by letting me know what you need!",
+      },
+    ]);
+  };
 
   return (
     <div className="relative">
@@ -73,20 +89,7 @@ export default function Assistant() {
           <AgentButton>
             <HelpIcon />
           </AgentButton>
-          <AgentButton
-            onClick={() => {
-              const createThread = async () => {
-                const res = await fetch(`/api/threads`, {
-                  method: "POST",
-                });
-                const data = await res.json();
-                setThreadId(data.threadId);
-                // Reset messages when new thread is created
-                setThreadMessages([]);
-              };
-              createThread();
-            }}
-          >
+          <AgentButton onClick={handleNewThread}>
             <NewChatIcon />
           </AgentButton>
         </div>
@@ -111,13 +114,14 @@ export default function Assistant() {
                 >
                   {m.role !== "data" && m.content}
                 </div>
+                {/* <button onClick={() => handleDelete(m.id)}>delete</button> */}
               </div>
             </div>
           ))}
         </AgentContent>
 
         {/* Form Input */}
-        <form onSubmit={handleSubmit} className="px-2 pb-2 ">
+        <form onSubmit={submitMessage} className="px-2 pb-2 ">
           <div className="flex gap-2 items-center border rounded-md relative overflow-hidden">
             {status === "in_progress" && (
               <div className="p-3 bg-white  absolute inset-0 flex items-center z-10">
