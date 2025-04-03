@@ -57,7 +57,7 @@ export default function Assistant() {
   };
 
   // to:do: store messages in db with threadId + User ID
-  //   console.log(threadMessages, "threadMessages");
+  console.log(threadMessages, "threadMessages");
 
   return (
     <div className="relative">
