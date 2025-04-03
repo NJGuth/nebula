@@ -12,6 +12,7 @@ import {
   HelpIcon,
   NewChatIcon,
 } from "./icons";
+import { TrashIcon, Dot } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function Assistant() {
@@ -53,9 +54,9 @@ export default function Assistant() {
   }, []);
 
   // handle delete of a single message
-  const handleDelete = (id: string) => {
-    setMessages(messages.filter((message) => message.id !== id));
-  };
+  // const handleDelete = (id: string) => {
+  //   setMessages(messages.filter((message) => message.id !== id));
+  // };
 
   // handle creating a new thread
   const handleNewThread = async () => {
@@ -114,8 +115,10 @@ export default function Assistant() {
                 >
                   {m.role !== "data" && m.content}
                 </div>
-                {/* <button onClick={() => handleDelete(m.id)}>delete</button> */}
               </div>
+              {/* <AgentButton variant="default" onClick={() => handleDelete(m.id)}>
+                <TrashIcon />
+              </AgentButton> */}
             </div>
           ))}
         </AgentContent>
@@ -125,7 +128,13 @@ export default function Assistant() {
           <div className="flex gap-2 items-center border rounded-md relative overflow-hidden">
             {status === "in_progress" && (
               <div className="p-3 bg-white  absolute inset-0 flex items-center z-10">
-                <p className="text-blue-600 animate-pulse">Thinking...</p>
+                <div className="justify-left flex space-x-1">
+                  <div className="flex -space-x-2.5">
+                    <Dot className="h-5 w-5 1.25s animate-bounce ease-out infinite" />
+                    <Dot className="h-5 w-5 1.25s animate-bounce ease-out infinite [animation-delay:90ms]" />
+                    <Dot className="h-5 w-5 1.25s animate-bounce ease-out infinite [animation-delay:180ms]" />
+                  </div>
+                </div>
               </div>
             )}
             <AutosizeTextarea
