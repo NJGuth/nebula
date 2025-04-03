@@ -131,7 +131,7 @@ export default function Assistant() {
                 >
                   <div
                     className={cn(
-                      "text-white break-words break-all rounded-lg p-3 max-w-[90%]",
+                      "text-white whitespace-normal break-normal rounded-lg p-3 max-w-[90%]",
                       m.role === "user"
                         ? "bg-gray-100 text-slate-900"
                         : "bg-blue-600"
