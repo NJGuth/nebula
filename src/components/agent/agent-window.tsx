@@ -6,7 +6,7 @@ import {
 import { cn } from "@/lib/utils";
 
 import { AiironSprite } from "./icons";
-import Agent from "./agent";
+import Assistant from "./assistant";
 
 export default function AgentWindow() {
   return (
@@ -27,7 +27,7 @@ export default function AgentWindow() {
           "p-0 mb-1 w-85 mr-3 h-[600px] overflow-hidden rounded-2xl shadow-md flex flex-col"
         )}
       >
-        <Agent />
+        <Assistant />
       </PopoverContent>
     </Popover>
   );

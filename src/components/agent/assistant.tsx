@@ -12,7 +12,7 @@ import {
   HelpIcon,
   NewChatIcon,
 } from "./icons";
-import { TrashIcon, Dot } from "lucide-react";
+import { Dot } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function Assistant() {
@@ -78,8 +78,8 @@ export default function Assistant() {
 
   return (
     <div className="relative">
-      <p className="absolute -top-10 left-0">Thread ID: {threadId}</p>
-      <div className="border w-[500px] h-[800px] overflow-hidden rounded-2xl shadow-md flex flex-col">
+      <p className="absolute -top-20 left-0">Thread ID: {threadId}</p>
+      <div className="border w-full h-[600px] overflow-hidden rounded-2xl shadow-md flex flex-col">
         {/* Assistant Header */}
         <div className="p-3 flex justify-between items-center gap-1">
           <div className="flex flex-1 items-center gap-1">
