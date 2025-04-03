@@ -3,8 +3,8 @@ import { openai } from "@/app/api/openai";
 export const runtime = "nodejs";
 
 // Send a new message to a thread
-export async function POST(request: Request, { params: { threadId } }: { params: { threadId: string } }) {
-  const { content } = await request.json();
+export async function POST(request: Request) {
+  const { content, threadId } = await request.json();
 
   if (!process.env.OPENAI_ASSISTANT_ID) {
     throw new Error("OPENAI_ASSISTANT_ID environment variable is not set");
