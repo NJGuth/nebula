@@ -5,15 +5,10 @@ import { cn } from "@/lib/utils";
 import AgentContent from "./agent-content";
 import { AutosizeTextarea } from "./autosize-textarea";
 import { AgentButton } from "./agent-button";
-import {
-  SendIcon,
-  StopIcon,
-  AiironSprite,
-  HelpIcon,
-  NewChatIcon,
-} from "./icons";
+import { SendIcon, StopIcon, NewChatIcon, AramcoSprite } from "./icons";
 import { Dot } from "lucide-react";
 import { useEffect, useState } from "react";
+import { SignOutButton } from "@clerk/nextjs";
 
 export default function Assistant() {
   // useAssistant hook to create a new assistant
@@ -56,11 +51,6 @@ export default function Assistant() {
     createThread();
   }, []);
 
-  // handle delete of a single message
-  // const handleDelete = (id: string) => {
-  //   setMessages(messages.filter((message) => message.id !== id));
-  // };
-
   // handle creating a new thread
   const handleNewThread = async () => {
     setIsTransitioning(true);
@@ -87,19 +77,20 @@ export default function Assistant() {
 
   //Main component
   return (
-    <div className="relative">
+    <div className="relative w-full max-w-[1000px]  overflow-hidden">
       <p className="absolute -top-20 left-0">Thread ID: {threadId}</p>
-      <div className="border w-full h-[600px] max-w-[500px] overflow-hidden rounded-2xl shadow-md flex flex-col">
+      <div className="border w-full h-[calc(100vh-100px)]  overflow-hidden rounded-2xl shadow-md flex flex-col">
         {/* Assistant Header */}
-        <div className="p-3 flex justify-between items-center gap-2">
+        <header className="p-3 bg-white flex justify-between items-center gap-2">
           <div className="flex flex-1 items-center gap-1">
-            <AiironSprite className="size-7" />
-
-            <span className="font-bold text-blue-950 select-none">Aiiron</span>
+            <AramcoSprite className=" h-10 text-[#0CABEC] " />
           </div>
-          <AgentButton>
+          {/* <AgentButton>
             <HelpIcon />
-          </AgentButton>
+          </AgentButton> */}
+          <div className="border h-9 rounded-md flex items-center justify-center px-2">
+            <SignOutButton />
+          </div>
           <AgentButton
             variant="newthread"
             onClick={handleNewThread}
@@ -110,7 +101,7 @@ export default function Assistant() {
           >
             <NewChatIcon />
           </AgentButton>
-        </div>
+        </header>
 
         {/* Assistant Content */}
         <AgentContent>
@@ -133,8 +124,8 @@ export default function Assistant() {
                     className={cn(
                       "text-white whitespace-normal break-normal rounded-lg p-3 max-w-[90%]",
                       m.role === "user"
-                        ? "bg-gray-100 text-slate-900"
-                        : "bg-blue-600"
+                        ? "bg-[#00B3EE1E] text-[#002540E2]"
+                        : "bg-[#00CC9937] text-[#00312AE9]"
                     )}
                   >
                     {m.role !== "data" && m.content}
@@ -149,8 +140,8 @@ export default function Assistant() {
         </AgentContent>
 
         {/* Form Input */}
-        <form onSubmit={submitMessage} className="px-2 pb-2 ">
-          <div className="flex gap-2 items-center border rounded-md relative overflow-hidden">
+        <form onSubmit={submitMessage} className="px-2 pb-2 bg-white">
+          <div className="flex gap-2 items-center border rounded-md focus-within:border-green-500 relative overflow-hidden">
             {status === "in_progress" && (
               <div className="p-3 bg-white  absolute inset-0 flex items-center z-10">
                 <div className="justify-left flex space-x-1">
@@ -165,14 +156,14 @@ export default function Assistant() {
             <AutosizeTextarea
               maxHeight={120}
               minHeight={56}
-              className="py-6.5 pl-3.5 pr-15 text-base disabled:animate-"
+              className="py-6.5 pl-3.5 pr-15 text-base peer disabled:animate-"
               disabled={status !== "awaiting_message"}
               value={input}
               placeholder="Enter your message..."
               onChange={handleInputChange}
             />
             <AgentButton
-              disabled={status === "awaiting_message" && !input}
+              disabled={status === "awaiting_message" && !input?.trim()}
               variant="submit"
               className={cn("absolute right-3 top-5 group z-20", {
                 "bg-red-100  text-red-500 hover:bg-red-200 hover:text-red-600":

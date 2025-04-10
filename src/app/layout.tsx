@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import AgentWindow from "@/components/agent/agent-window";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -19,15 +19,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={` ${inter.variable} antialiased`}>
-        <div className=" ">
-          <main className="relative ">
-            {children}
-            <AgentWindow />
-          </main>
-        </div>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={` ${inter.variable} antialiased`}>
+          <div className=" ">
+            <main className="relative ">{children}</main>
+          </div>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
