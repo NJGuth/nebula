@@ -61,6 +61,7 @@ const useAutoScroll = (
           once: true,
         });
       } catch (e) {
+        console.error(e);
         // scrollend event not supported in this browser, fallback to requestAnimationFrame
       }
     },

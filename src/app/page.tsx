@@ -3,14 +3,12 @@ import { useEffect, useRef, useState } from "react";
 import { PromptInput, PromptInputTextarea } from "@/components/ai/prompt-input";
 import { Message, MessageContent } from "@/components/ai/message";
 import { ChatContainer } from "@/components/ai/chat-container";
-import { useChat, useAssistant } from "@ai-sdk/react";
+import { useAssistant } from "@ai-sdk/react";
 import AiironSprite from "@/components/ai/AiironSprite";
 import { SendButton } from "@/components/agent/send-button";
 import { Loader } from "@/components/ai/loader";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 import { PlusIcon, X } from "lucide-react";
-import { NewChatIcon } from "@/components/agent/icons";
 import { AgentButton } from "@/components/agent/agent-button";
 
 export default function Home() {
