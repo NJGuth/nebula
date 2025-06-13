@@ -8,7 +8,7 @@ import AiironSprite from "@/components/ai/AiironSprite";
 import { SendButton } from "@/components/agent/send-button";
 import { Loader } from "@/components/ai/loader";
 import { cn } from "@/lib/utils";
-import { PlusIcon, X } from "lucide-react";
+import { MessageCirclePlus } from "lucide-react";
 import { AgentButton } from "@/components/agent/agent-button";
 
 export default function Home() {
@@ -73,7 +73,7 @@ export default function Home() {
             disabled={!messages.some((m) => m.role === "user")}
           >
             <span className="text-xs font-medium">New</span>
-            <PlusIcon />
+            <MessageCirclePlus />
           </AgentButton>
         </header>
         <ChatContainer
