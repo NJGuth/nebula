@@ -6,7 +6,9 @@ import {
   SignedIn,
   SignedOut,
   SignInButton,
+  SignOutButton,
 } from "@clerk/nextjs";
+import { AiironSprite } from "@/components/agent/icons";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -30,10 +32,16 @@ export default function RootLayout({
       <html lang="en">
         <body className={` ${inter.variable} antialiased`}>
           <div className="flex overflow-hidden flex-col items-center bg-linear-to-tr from-blue-700 to-blue-400  justify-center h-screen p-2 sm:p-8 lg:p-12 relative">
-            <SignedIn>{children}</SignedIn>
+            <SignedIn>
+              {children}
+              <div className=" absolute bottom-3 bg-white/20 px-2 rounded-md">
+                <SignOutButton />
+              </div>
+            </SignedIn>
             <SignedOut>
               <div className="flex bg-white rounded-md w-full  flex-col items-center justify-center h-screen">
-                <p className="text-2xl font-bold mb-8">Agent Testing</p>
+                <AiironSprite className="size-14 mb-4" />
+                <p className="text-2xl font-bold mb-8">Aiiron Demo</p>
                 <div className="flex flex-col border h-12  rounded-md hover:border-green-500 hover:bg-green-100 hover:text-green-700 items-center text-xl justify-center px-12">
                   <SignInButton />
                 </div>
