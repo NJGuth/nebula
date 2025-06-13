@@ -1,20 +1,134 @@
-import Assistant from "@/components/agent/assistant";
-import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
+"use client";
+import { useEffect, useRef, useState } from "react";
+import { PromptInput, PromptInputTextarea } from "@/components/ai/prompt-input";
+import { Message, MessageContent } from "@/components/ai/message";
+import { ChatContainer } from "@/components/ai/chat-container";
+import { useChat, useAssistant } from "@ai-sdk/react";
+import AiironSprite from "@/components/ai/AiironSprite";
+import { SendButton } from "@/components/agent/send-button";
+import { Loader } from "@/components/ai/loader";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { PlusIcon, X } from "lucide-react";
+import { NewChatIcon } from "@/components/agent/icons";
+import { AgentButton } from "@/components/agent/agent-button";
 
 export default function Home() {
+  // Initialize AI SDK
+  const {
+    messages,
+    input,
+    handleInputChange,
+    submitMessage,
+    status,
+    stop,
+    setMessages,
+  } = useAssistant({
+    api: "/api/assistant",
+  });
+
+  const [threadId, setThreadId] = useState<string | null>(null);
+
+  const handleNewChat = async () => {
+    try {
+      const res = await fetch("/api/threads", {
+        method: "POST",
+      });
+      const data = await res.json();
+      setThreadId(data.threadId);
+      setMessages([
+        {
+          id: "welcome-message",
+          role: "assistant",
+          content:
+            "Hi, I'm Aiiron! I am an AI coach, here to support you between your coaching sessions. I can help you prepare for sessions, reflect on your coaching, craft development goals, and more. Get started by letting me know what you need!",
+        },
+      ]);
+    } catch (error) {
+      console.error("Error creating new thread:", error);
+    }
+  };
+
+  // Create initial thread on mount
+  useEffect(() => {
+    if (!threadId) {
+      handleNewChat();
+    }
+  }, []);
+
+  //Push to bottom when new message enter
+  const containerRef = useRef<HTMLDivElement>(null);
+  const bottomRef = useRef<HTMLDivElement>(null);
+
   return (
-    <div className="flex overflow-hidden flex-col items-center bg-linear-to-tr from-[#64C130] to-[#0CABEC]  justify-center h-screen p-2 sm:p-8 lg:p-12 relative">
-      <SignedIn>
-        <Assistant />
-      </SignedIn>
-      <SignedOut>
-        <div className="flex bg-white rounded-md w-full  flex-col items-center justify-center h-screen">
-          <p className="text-2xl font-bold mb-8">Agent Testing</p>
-          <div className="flex flex-col border h-12  rounded-md hover:border-green-500 hover:bg-green-100 hover:text-green-700 items-center text-xl justify-center px-12">
-            <SignInButton />
+    <div className="relative w-full max-w-[1000px]  overflow-hidden">
+      <div className="border w-full h-[calc(100vh-100px)] bg-background  overflow-hidden rounded-2xl shadow-md flex flex-col">
+        <header className="flex items-center justify-between px-3 py-3 border-b h-15">
+          <div className="flex items-center gap-3">
+            <AiironSprite className="size-8 ml-1" />
+
+            <h1 className="text-lg text-sky-800 font-bold">Aiiron</h1>
           </div>
+          <AgentButton
+            variant="newthread"
+            onClick={handleNewChat}
+            disabled={!messages.some((m) => m.role === "user")}
+          >
+            <span className="text-xs font-medium">New</span>
+            <PlusIcon />
+          </AgentButton>
+        </header>
+        <ChatContainer
+          className="flex-1 py-4"
+          ref={containerRef}
+          scrollToRef={bottomRef}
+          autoScroll={true}
+        >
+          {messages.map((message) => (
+            <Message key={message.id} role={message.role}>
+              {/* {message.role === "assistant" && (
+                <MessageAvatar src="" alt="Aiiron">
+                  <AiironSprite />
+                </MessageAvatar>
+              )} */}
+              <MessageContent>{message.content}</MessageContent>
+            </Message>
+          ))}
+        </ChatContainer>
+
+        <div className="px-3 pb-3">
+          <PromptInput onSubmit={submitMessage} value={input}>
+            <PromptInputTextarea
+              value={input}
+              onChange={handleInputChange}
+              autoFocus
+              disabled={status === "in_progress"}
+              className={cn("pr-12", status === "in_progress" && "opacity-0")}
+              placeholder={
+                status === "in_progress" ? "Thinking..." : "Ask Aiiron..."
+              }
+            />
+            {status === "in_progress" && (
+              <div className="absolute left-3.5 bg-background top-4 min-w-15 text-primary">
+                <Loader
+                  variant="loading-dots"
+                  className="animate-pulse"
+                  text="Thinking.."
+                />
+              </div>
+            )}
+
+            <div className="absolute right-3.5 top-3.5">
+              <SendButton
+                status={status}
+                stop={stop}
+                handleSubmit={() => submitMessage()}
+                input={input}
+              />
+            </div>
+          </PromptInput>
         </div>
-      </SignedOut>
+      </div>
     </div>
   );
 }

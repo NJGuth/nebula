@@ -5,7 +5,13 @@ import { cn } from "@/lib/utils";
 import AgentContent from "./agent-content";
 import { AutosizeTextarea } from "./autosize-textarea";
 import { AgentButton } from "./agent-button";
-import { SendIcon, StopIcon, NewChatIcon, AramcoSprite } from "./icons";
+import {
+  SendIcon,
+  StopIcon,
+  NewChatIcon,
+  AramcoSprite,
+  AiironSprite,
+} from "./icons";
 import { Dot } from "lucide-react";
 import { useEffect, useState } from "react";
 import { SignOutButton } from "@clerk/nextjs";
@@ -78,16 +84,13 @@ export default function Assistant() {
   //Main component
   return (
     <div className="relative w-full max-w-[1000px]  overflow-hidden">
-      <p className="absolute -top-20 left-0">Thread ID: {threadId}</p>
       <div className="border w-full h-[calc(100vh-100px)]  overflow-hidden rounded-2xl shadow-md flex flex-col">
         {/* Assistant Header */}
         <header className="p-3 bg-white flex justify-between items-center gap-2">
           <div className="flex flex-1 items-center gap-1">
-            <AramcoSprite className=" h-10 text-[#0CABEC] " />
+            <AiironSprite className=" h-8 text-[#0CABEC] " />
+            Aiiron
           </div>
-          {/* <AgentButton>
-            <HelpIcon />
-          </AgentButton> */}
           <div className="border h-9 rounded-md flex items-center justify-center px-2">
             <SignOutButton />
           </div>
