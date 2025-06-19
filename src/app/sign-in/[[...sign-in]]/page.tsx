@@ -51,7 +51,9 @@ export default function Page() {
         >
           <SignIn
             appearance={{
-              elements: {},
+              elements: {
+                footerAction: { display: "none" },
+              },
             }}
           />
           <div className="w-full flex items-center mt-2 rounded-2xl  justify-between p-4  px-4">
