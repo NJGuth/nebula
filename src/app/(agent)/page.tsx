@@ -10,8 +10,10 @@ import { Loader } from "@/components/ai/loader";
 import { cn } from "@/lib/utils";
 import { MessageCirclePlus } from "lucide-react";
 import { AgentButton } from "@/components/agent/agent-button";
+import { SignOutButton } from "@clerk/nextjs";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 
-export default function Home() {
+export default function DemoPage() {
   // Initialize AI SDK
   const {
     messages,
@@ -59,14 +61,18 @@ export default function Home() {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="relative w-full max-w-[1000px]  overflow-hidden">
-      <div className="border w-full h-[calc(100vh-100px)] bg-background  overflow-hidden rounded-2xl shadow-md flex flex-col">
+    <div className="relative w-full overflow-hidden">
+      <div className=" w-full  bg-background  overflow-hidden h-[calc(100vh)]  my-auto flex flex-col">
         <header className="flex items-center justify-between px-3 py-3 border-b h-15">
-          <div className="flex items-center gap-3">
-            <AiironSprite className="size-8 ml-1" />
-
-            <h1 className="text-lg text-sky-800 font-bold">Aiiron</h1>
+          <div className="block md:hidden">
+            <SidebarTrigger />
           </div>
+          <div className="flex items-center gap-3">
+            <AiironSprite className="size-6 ml-0.5" />
+
+            <h1 className="text-lg text-brand-1 font-bold">Aiiron</h1>
+          </div>
+
           <AgentButton
             variant="newthread"
             onClick={handleNewChat}
@@ -116,7 +122,7 @@ export default function Home() {
               </div>
             )}
 
-            <div className="absolute right-3.5 top-3.5">
+            <div className="absolute right-2.5 top-3">
               <SendButton
                 status={status}
                 stop={stop}
