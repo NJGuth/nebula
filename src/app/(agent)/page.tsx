@@ -10,7 +10,6 @@ import { Loader } from "@/components/ai/loader";
 import { cn } from "@/lib/utils";
 import { MessageCirclePlus } from "lucide-react";
 import { AgentButton } from "@/components/agent/agent-button";
-import { SignOutButton } from "@clerk/nextjs";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 
 export default function DemoPage() {
