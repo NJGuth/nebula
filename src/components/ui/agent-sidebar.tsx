@@ -84,8 +84,9 @@ export function AgentSidebar({
               <p className="text-xs text-white/80 leading-relaxed">
                 Security is our priority. We require sign-in for safe access and
                 only store your name and email to run this demo. Your
-                conversations aren't saved, and all interactions use a private
-                ChatGPT instance—never used for training or shared externally.
+                conversations aren&apos;t saved, and all interactions use a
+                private ChatGPT instance—never used for training or shared
+                externally.
               </p>
             </div>
           </div>
