@@ -90,41 +90,6 @@ export function AgentSidebar({
             </div>
           </div>
         </SidebarGroup>
-        {/* <SidebarGroup className="text-white text-sm p-4.5">
-          <h2 className="font-bold text-base mb-2">
-            <span className="text-lg font-bold">Meet Aiiron</span>
-            <br />
-            <span className="text-sm font-medium">
-              Your AI Coaching Assistant
-            </span>
-          </h2>
-          <p className="mb-4">
-            Where coaching science meets AI innovation. Developed with leading
-            scholars and tested by world-class executive coaches to enhance the
-            human coaching experience.
-          </p>
-          <h3 className="font-bold text-base mb-2">Aiiron helps coachees:</h3>
-          <ol className="grid gap-1.5">
-            {features.map((feature) => (
-              <li
-                key={feature.title}
-                className="p-2 text-xs font-medium bg-brand-2/20 rounded-md"
-              >
-                {feature.title}
-              </li>
-            ))}
-          </ol>
-
-          <h2 className="text-sm font-medium my-2">
-            Your Data, Protected by Design
-          </h2>
-          <p className="text-xs">
-            Security is our priority. We require sign-in for safe access and
-            only store your name and email to run this demo. Your conversations
-            aren't saved, and all interactions use a private ChatGPT
-            instance—never used for training or shared externally.
-          </p>
-        </SidebarGroup> */}
       </SidebarContent>
       <SidebarFooter className="bg-gradient-to-b from-brand-1 to-brand-1">
         <SignOutButton>
