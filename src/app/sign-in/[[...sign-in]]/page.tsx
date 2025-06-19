@@ -2,7 +2,7 @@
 import { cn } from "@/lib/utils";
 import { SignIn } from "@clerk/nextjs";
 import { Ripple } from "@/components/magicui/ripple";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import AiirLogo from "@/components/agent/icons/aiir-logo";
 import Link from "next/link";
 import Image from "next/image";
