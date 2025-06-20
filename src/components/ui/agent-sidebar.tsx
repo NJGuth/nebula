@@ -13,14 +13,14 @@ const features = [
       "Can you help me think through the best way to give my colleague feedback?",
   },
   {
-    title: "I'd like to work on a goal in my Strategic Development Plan",
+    title: "I'd like to work on my coaching goals.",
   },
   {
-    title: "I'd like to prepare for an upcoming session with my coach",
+    title: "I'd like to prepare for an upcoming session with my coach.",
   },
   {
     title:
-      "I'm having trouble with a relationship at work and need to figure out a way forward",
+      "I'm having trouble with a relationship at work and need to figure out a way forward.",
   },
 ];
 
