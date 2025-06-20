@@ -9,11 +9,11 @@ import {
   useEffect,
   useCallback,
 } from "react";
-import type { AssistantStatus } from "ai";
+import type { AssistantStatus, Message } from "ai";
 
 type AgentContextType = {
   status: AssistantStatus;
-  messages: any[];
+  messages: Message[];
   input: string;
   handleInputChange: (
     e:
@@ -24,7 +24,7 @@ type AgentContextType = {
   stop: () => void;
   error: Error | undefined;
   threadId: string | null;
-  setMessages: (messages: any[]) => void;
+  setMessages: (messages: Message[]) => void;
   handleNewChat: () => Promise<void>;
   submitMessageFromSidebar: (message: string) => void;
 };
