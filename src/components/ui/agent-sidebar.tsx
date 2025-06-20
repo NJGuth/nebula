@@ -1,10 +1,5 @@
 "use client";
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-} from "@/components/ui/sidebar";
+import { Sidebar, SidebarContent, SidebarGroup } from "@/components/ui/sidebar";
 import { SignOutButton } from "@clerk/nextjs";
 import { Button } from "./button";
 import { useAgent } from "../agent/agent-provider";
@@ -65,7 +60,7 @@ export function AgentSidebar({
               Try these prompts:
             </h3>
             <div className="grid gap-2">
-              {features.map((feature, index) => (
+              {features.map((feature) => (
                 <button
                   onClick={() => handleFeatureClick(feature.title)}
                   disabled={status === "in_progress"}
