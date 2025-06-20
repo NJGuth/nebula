@@ -1,9 +1,8 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { PromptInput, PromptInputTextarea } from "@/components/ai/prompt-input";
 import { Message, MessageContent } from "@/components/ai/message";
 import { ChatContainer } from "@/components/ai/chat-container";
-import { useAssistant } from "@ai-sdk/react";
 import AiironSprite from "@/components/ai/AiironSprite";
 import { SendButton } from "@/components/agent/send-button";
 import { Loader } from "@/components/ai/loader";
@@ -11,9 +10,9 @@ import { cn } from "@/lib/utils";
 import { MessageCirclePlus } from "lucide-react";
 import { AgentButton } from "@/components/agent/agent-button";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import { useAgent } from "@/components/agent/agent-provider";
 
 export default function DemoPage() {
-  // Initialize AI SDK
   const {
     messages,
     input,
@@ -21,46 +20,15 @@ export default function DemoPage() {
     submitMessage,
     status,
     stop,
-    setMessages,
-  } = useAssistant({
-    api: "/api/assistant",
-  });
-
-  const [threadId, setThreadId] = useState<string | null>(null);
-
-  const handleNewChat = async () => {
-    try {
-      const res = await fetch("/api/threads", {
-        method: "POST",
-      });
-      const data = await res.json();
-      setThreadId(data.threadId);
-      setMessages([
-        {
-          id: "welcome-message",
-          role: "assistant",
-          content:
-            "Hi, I'm Aiiron! I am an AI coach, here to support you between your coaching sessions. I can help you prepare for sessions, reflect on your coaching, craft development goals, and more. Get started by letting me know what you need!",
-        },
-      ]);
-    } catch (error) {
-      console.error("Error creating new thread:", error);
-    }
-  };
-
-  // Create initial thread on mount
-  useEffect(() => {
-    if (!threadId) {
-      handleNewChat();
-    }
-  }, []);
+    handleNewChat,
+  } = useAgent();
 
   //Push to bottom when new message enter
   const containerRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="relative w-full overflow-hidden">
+    <div className="relative w-full  overflow-hidden">
       <div className=" w-full  bg-background  overflow-hidden h-[calc(100vh)]  my-auto flex flex-col">
         <header className="flex items-center justify-between px-3 py-3 border-b h-15">
           <div className="block md:hidden">
