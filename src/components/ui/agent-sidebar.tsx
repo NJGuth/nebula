@@ -6,7 +6,7 @@ import { useAgent } from "../agent/agent-provider";
 
 const features = [
   {
-    title: "Can you help me prioritize my overwhelming workload.",
+    title: "Can you help me prioritize my overwhelming workload?",
   },
   {
     title:
